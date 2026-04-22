@@ -1,0 +1,219 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Beauty House</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #0d0d0d, #1a1a1a);
+  color: white;
+}
+
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 700;
+}
+
+.sub {
+  text-align: center;
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 20px;
+}
+
+.box {
+  background: #1f1f1f;
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 15px rgba(255,105,180,0.2);
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+button {
+  background: #ff4da6;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.total {
+  text-align: center;
+  font-size: 26px;
+  margin-top: 20px;
+  font-weight: 700;
+  color: #ff4da6;
+}
+
+.whatsapp {
+  display: block;
+  text-align: center;
+  background: #25D366;
+  color: white;
+  padding: 15px;
+  border-radius: 15px;
+  text-decoration: none;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>The Beauty House 💅</h1>
+<p class="sub">Cotizá tus uñas en segundos</p>
+
+<div class="box">
+<h3>Técnica</h3>
+<select id="servicio" onchange="calcular()">
+<option value="0">Elegir servicio</option>
+<option value="15000">Soft gel $15.000</option>
+<option value="10000">Esmaltado semipermanente $10.000</option>
+<option value="12000">Kapping gel $12.000</option>
+<option value="14000">Kapping acrílico $14.000</option>
+<option value="12000">Kapping polygel $12.000</option>
+<option value="18000">Esculpidas acrílico N2 $18.000</option>
+<option value="17000">Esculpidas polygel N2 $17.000</option>
+</select>
+</div>
+
+<div class="box">
+<h3>Decoraciones</h3>
+
+<div class="row">
+<span>Strass ($500)</span>
+<div>
+<button onclick="cambiar('strass', -1)">-</button>
+<span id="strass">0</span>
+<button onclick="cambiar('strass', 1)">+</button>
+</div>
+</div>
+
+<div class="row">
+<span>Polvo ($100)</span>
+<div>
+<button onclick="cambiar('polvo', -1)">-</button>
+<span id="polvo">0</span>
+<button onclick="cambiar('polvo', 1)">+</button>
+</div>
+</div>
+
+<div class="row">
+<span>Encapsulado ($500)</span>
+<div>
+<button onclick="cambiar('encap', -1)">-</button>
+<span id="encap">0</span>
+<button onclick="cambiar('encap', 1)">+</button>
+</div>
+</div>
+
+<div class="row">
+<span>Dibujo a mano ($300)</span>
+<div>
+<button onclick="cambiar('dibujo', -1)">-</button>
+<span id="dibujo">0</span>
+<button onclick="cambiar('dibujo', 1)">+</button>
+</div>
+</div>
+
+</div>
+
+<div class="total">
+$<span id="total">0</span>
+</div>
+
+<a id="wp" class="whatsapp" target="_blank">
+Reservar turno por WhatsApp
+</a>
+
+<div class="footer">
+The Beauty House ✨
+</div>
+
+</div>
+
+<script>
+let precios = {
+  strass: 500,
+  polvo: 100,
+  encap: 500,
+  dibujo: 300
+};
+
+function cambiar(tipo, valor) {
+  let el = document.getElementById(tipo);
+  let num = parseInt(el.innerText);
+  num = Math.max(0, num + valor);
+  el.innerText = num;
+  calcular();
+}
+
+function calcular() {
+  let total = parseInt(document.getElementById("servicio").value);
+
+  let strass = document.getElementById("strass").innerText;
+  let polvo = document.getElementById("polvo").innerText;
+  let encap = document.getElementById("encap").innerText;
+  let dibujo = document.getElementById("dibujo").innerText;
+
+  total += strass * precios.strass;
+  total += polvo * precios.polvo;
+  total += encap * precios.encap;
+  total += dibujo * precios.dibujo;
+
+  document.getElementById("total").innerText = total;
+
+  let mensaje = `Hola! 💅 Quiero reservar:%0A
+Servicio: ${document.getElementById("servicio").options[document.getElementById("servicio").selectedIndex].text}%0A
+Strass: ${strass}%0A
+Polvo: ${polvo}%0A
+Encapsulado: ${encap}%0A
+Dibujo: ${dibujo}%0A
+TOTAL: $${total}`;
+
+  document.getElementById("wp").href = `https://wa.me/TUNUMERO?text=${mensaje}`;
+}
+</script>
+
+</body>
+</html>
+```
